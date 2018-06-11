@@ -72,7 +72,7 @@ Q_OBJECT
         void setupBaseActions( KActionCollection * collection );
         void setupViewerActions( KActionCollection * collection );
         void setupActions( KActionCollection * collection );
-        void updateActionState( bool docHasPages, bool docChanged, bool docHasFormWidgets );
+        void updateActionState(bool docHasPages, bool docChanged, bool docHasFormWidgets , bool docHasSignatureForms );
 
         // misc methods (from RMB menu/children)
         bool canFitPageWidth() const;
@@ -102,6 +102,7 @@ Q_OBJECT
 
         KActionCollection *actionCollection() const;
         QAction *toggleFormsAction() const;
+        QAction *validateSignaturesAction() const;
 
         int contentAreaWidth() const;
         int contentAreaHeight() const;
@@ -130,6 +131,7 @@ Q_OBJECT
         void mouseForwardButtonClick();
         void escPressed();
         void fitWindowToPage( const QSize& pageViewPortSize, const QSize& pageSize );
+        void signatureValidationComplete( bool allSignaturesValid );
 
     protected:
         bool event( QEvent * event ) override;
@@ -271,6 +273,7 @@ Q_OBJECT
         void slotProcessRenditionAction( const Okular::RenditionAction *action );
         void slotToggleChangeColors();
         void slotFitWindowToPage();
+        void slotValidateSignatures();
 };
 
 #endif
