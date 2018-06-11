@@ -38,7 +38,9 @@ class FormField;
 class FormFieldButton;
 class FormFieldChoice;
 class FormFieldText;
+class FormFieldSignature;
 class Document;
+class SignatureInfo;
 }
 
 struct RadioData
@@ -343,6 +345,30 @@ class ComboEdit : public QComboBox, public FormWidgetIface
     private:
         int m_prevCursorPos;
         int m_prevAnchorPos;
+    DECLARE_ADDITIONAL_ACTIONS
+};
+
+class SignatureEdit : public QAbstractButton, public FormWidgetIface
+{
+    Q_OBJECT
+
+    public:
+        explicit SignatureEdit( Okular::FormFieldSignature * signature, QWidget * parent = nullptr );
+        Okular::SignatureInfo *validate();
+
+    protected:
+        bool event( QEvent * e ) override;
+        void contextMenuEvent( QContextMenuEvent * event ) override;
+        void paintEvent( QPaintEvent * event ) override;
+
+    private Q_SLOTS:
+        void slotShowSummary();
+        void slotShowProperties();
+
+    private:
+        Okular::SignatureInfo *m_sigInfo;
+        bool m_lefMouseButtonPressed;
+
     DECLARE_ADDITIONAL_ACTIONS
 };
 
